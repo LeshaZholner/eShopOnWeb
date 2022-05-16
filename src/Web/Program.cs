@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.eShopWeb;
 using Microsoft.eShopWeb.ApplicationCore.Interfaces;
+using Microsoft.eShopWeb.ApplicationCore.Options;
 using Microsoft.eShopWeb.Infrastructure.Data;
 using Microsoft.eShopWeb.Infrastructure.Identity;
 using Microsoft.eShopWeb.Web;
@@ -42,7 +43,13 @@ builder.Services.AddScoped<ITokenClaimsService, IdentityTokenClaimService>();
 
 builder.Services.AddCoreServices(builder.Configuration);
 builder.Services.AddWebServices(builder.Configuration);
+builder.Services.AddHttpClient();
 
+builder.Services.AddOptions<ApiOptions>()
+    .Configure<IConfiguration>((settings, configuration) =>
+    {
+        configuration.GetSection(nameof(ApiOptions)).Bind(settings);
+    });
 // Add memory cache services
 builder.Services.AddMemoryCache();
 builder.Services.AddRouting(options =>
