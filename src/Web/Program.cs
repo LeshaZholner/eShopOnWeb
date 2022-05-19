@@ -50,6 +50,12 @@ builder.Services.AddOptions<ApiOptions>()
     {
         configuration.GetSection(nameof(ApiOptions)).Bind(settings);
     });
+builder.Services.AddOptions<ServiceBusOptions>()
+    .Configure<IConfiguration>((settings, configuration) =>
+    {
+        configuration.GetSection(nameof(ServiceBusOptions)).Bind(settings);
+    });
+
 // Add memory cache services
 builder.Services.AddMemoryCache();
 builder.Services.AddRouting(options =>

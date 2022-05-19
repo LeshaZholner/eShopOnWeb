@@ -3,8 +3,6 @@ using Microsoft.eShopWeb.ApplicationCore.Interfaces;
 using Microsoft.eShopWeb.Infrastructure.Services;
 using Microsoft.eShopWeb.Web.Interfaces;
 using Microsoft.eShopWeb.Web.Services;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.eShopWeb.Web.Configuration;
 
@@ -19,6 +17,7 @@ public static class ConfigureWebServices
         services.Configure<CatalogSettings>(configuration);
         services.AddScoped<ICatalogViewModelService, CachedCatalogViewModelService>();
         services.AddTransient<IApiClient, ApiClient>();
+        services.AddTransient<IServiceBusSender, ServiceBusSender>();
         return services;
     }
 }
